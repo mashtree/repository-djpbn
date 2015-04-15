@@ -1,0 +1,174 @@
+*{
+	margin:0 auto;
+}
+
+body{
+	background-color: #ffffff;
+	color:;
+}
+
+/*---------- TOP MENU ------------*/
+
+/** Changes background color, height and margin of the border **/
+
+@media only screen and (max-width: 942px) {
+ 
+    /* Makes the responsive menu fit in the navigation container and change its background to black */
+    .top-bar ul {
+        background-color: #00FFFF;
+        padding-bottom: 13px;
+    }
+ 
+    /* Change non active menu item color to black */
+    .top-bar-section ul li > a {
+        color: #000;
+    }
+ 
+    /* Gives the dropdown ul a black fill */
+    .top-bar-section ul {
+        background: #00FFFF;
+    }
+
+    .top-bar-section ul > li {
+    	border-bottom: 1px solid #2980b9;
+    }
+ 
+    /* Give the BACK button after going in a submenu the appropriate filling */
+    .top-bar-section .dropdown li.title h5 a {
+        line-height: 57px;
+    }
+ 
+    /* This fixes the position and the color of the dropdown arrow */
+    .top-bar-section .has-dropdown > a:after {
+        border-color: rgba(255, 255, 255, 1) transparent transparent;
+        margin-top: 2.5px;
+    }
+ 
+} /* end media query */
+
+.top-bar {
+    /*background-image: url('../image/navigation-container.jpg');
+    background-repeat: repeat-x;*/
+    background-color: #FFFFFF;
+    margin-bottom: 0;
+    border-bottom: 1px solid #737373;
+}
+
+.top-bar-section{
+    background: none !important;
+}
+
+/** Removes black background on menu bar **/
+.top-bar-section ul li {
+    background: none !important;
+    text-transform: uppercase;
+}
+ 
+/** Removes black background on menu item **/
+.top-bar-section li a:not(.button) {
+    background: none !important;
+    line-height: 58px;
+    padding: 0 27px;
+    color:#737373;
+}
+
+.top-bar-section li a:not(.button):hover {
+    background: #FFFFFF !important;
+    color:#000 !important;
+    height: 45px;
+    border-bottom: 2px solid red;
+    /*border-bottom: 1px solid #2ecc71;   */
+}
+
+/** Changes the active menu item from default black to a gradient **/
+.top-bar-section ul li.active > a {
+    background:  rgb(0, 0, 0) !important;
+    background: linear-gradient(to bottom, rgba(52, 152, 219, 0.4) 0%, rgba(43, 147, 217, 0.7) 100%) repeat scroll 0 0 transparent !important;
+    color: #000;
+}
+
+.top-bar-section ul li.active > a:hover {
+    background: yellow !important;   
+}
+ 
+/** Changes the hover state of non active menu items **/
+.top-bar-section li:hover a {
+    background: #00ffff !important;
+    color: #000;
+    /*linear-gradient(to bottom, rgba(52, 152, 219, 0.4) 0%, rgba(43, 147, 217, 0.7) 100%) repeat scroll 0 0 transparent*/
+}
+ 
+/** Changes non active menu items text color to black **/
+.top-bar-section ul li > a {
+    color: #000;
+}
+
+.top-bar-section ul.dropdown li a:not(.button) {
+    /*background-image: url('../image/navigation-container.jpg') !important;
+    background-repeat: repeat-x;
+    background: linear-gradient(to bottom, rgba(52, 152, 219, 1) 0%, rgba(52, 152, 219, 0.9) 100%) repeat scroll 0 0 transparent !important;*/
+    background-color: #00FFFF !important;
+    border-bottom: 1px solid #2980b9;
+    color:#000 !important;
+}
+ 
+/** Changes the hover state of dropdown menu items **/
+.top-bar-section ul.dropdown li a:hover:not(.button) {
+    /*background: none repeat scroll 0 0 rgba(0, 0, 0, 0.9) !important;*/
+    background: #02FF02 !important;
+    color: #fff !important;
+}
+ 
+/** IMPORTANT fill for the ul dropdown container **/
+.top-bar-section ul.dropdown {
+    background: #fff !important;
+    color: #000;
+}
+ 
+/** This fixes the position and the color of the dropdown arrow **/
+.top-bar-section .has-dropdown > a:after {
+    border-color: rgba(0, 0, 0, 1) transparent transparent;
+    margin-top: 2.5px;
+}
+
+.logo{
+	padding-top: 20%;
+	text-align: center;
+	padding-bottom: 5%;
+
+}
+
+.logo > img{
+	max-width: 50%;
+}
+
+/* SIDE MENU */
+#side-menu{
+    margin:20px 0px 0px 0px;    
+    height: 100%;
+    background-color: #ddd;
+}
+
+#side-menu ul li{
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+    display: block;
+}
+
+#side-menu ul li:hover{
+    color: red;
+}
+
+#content{
+    padding-bottom: 50px;
+}
+
+.footer{
+	height: 40px;
+	background-color: #F2F2F2;
+	bottom: 0;
+	padding-top: 10px;
+	position: fixed;
+	width: 100%;
+	padding-left: 10px;
+}
