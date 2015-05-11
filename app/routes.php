@@ -37,6 +37,11 @@ Route::group(array('prefix'=>'admin'),function(){
 	Route::group(array('before'=>'csrf'),function(){
 		Route::post('katalog', array('as'=>'katalog','uses'=>'BackendController@addKatalog'));
 	});
+
+	Route::get('aAuthor','BackendController@addAuthor');
+
+	Route::post('aAuthor',array('as'=>'author','uses'=>'BackendController@addAuthor'));
+
 });
 
 Route::get('get_author','BackendController@getAuthor');

@@ -23,7 +23,8 @@
 </fieldset>
 <fieldset>
 	<legend>AUTHOR</legend>
-	<div>tidak ditemukan author? <a href="#" data-reveal-id="author-modal">klik disini</a> untuk menambahkan</div>
+	{{-- data-reveal-id="author-modal" --}}
+	<div>tidak ditemukan author? <a href="{{URL::to('admin/aAuthor')}}" >klik disini</a> untuk menambahkan</div>
 	<div class="input_fields_wrap">
     <div><select name="author[]" id="author_select">
     </select></div>
@@ -60,7 +61,7 @@
 	<div id="author-modal" class="reveal-modal" data-reveal >
 		<fieldset>
 			<legend style="color:#52B3AE" class="font-grey">Rekam Author</legend>
-			{{ Form::open(array('files'=>true)) }}
+			{{ Form::open(array('files'=>true,'id'=>'rkmAuthor')) }}
 			<div class="row">
 			<div class="large-6 columns end">
 				{{ Form::label('authorname','NAMA')}}
@@ -71,23 +72,48 @@
 				{{ Form::text('idp','',array('placeholder'=>'nomor identitas (selain NIP'))}}
 				{{ Form::label('phone','NOMOR TELEPON')}}
 				{{ Form::text('phone','',array('placeholder'=>'nomor telepon'))}}
+				{{ Form::label('birthplace','TEMPAT LAHIR')}}
+				{{ Form::text('birthplace','',array('placeholder'=>'Tempat Lahir'))}}
+				{{ Form::label('birthdate','TANGGAL LAHIR')}}
+				{{ Form::text('birthdate','',array('placeholder'=>'TANGGAL LAHIR'))}}
 				{{ Form::label('foto','foto')}}
-				{{ Form::file('foto',array('class'=>'button tiny'))}}
+				{{ Form::file('foto',array('class'=>'button tiny','id'=>'fAuthor'))}}
 			</div>
 			<div class="large-6 columns end">
 				{{ Form::label('address','ALAMAT TEMPAT TINGGAL')}}
 				{{ Form::textarea('address')}}
 				{{ Form::label('office','ALAMAT KANTOR')}}
 				{{ Form::textarea('office')}}
+				{{ Form::label('about','SEPATAH KATA TENTANG DOI')}}
+				{{ Form::textarea('about')}}
 			</div>				
 			</div>
 			<div class="row">
 				<div class="middle-12 columns" style="text-align:right">
-					<a href="#" data-reveal-id="sukses-modal"><input class="button" type="submit" name="ok" value="kirim"></a>	
+					<input class="button" type="button" name="ok" value="kirim" id="sAuthor">	
 				</div>
 			</div>
 			{{ Form::close()}}
 		</fieldset>
 		<a class="close-reveal-modal">&#215;</a>
 	</div>
+<script type="text/javascript">
+	$('#sAuthor').click(function(){
+		var formData = new FormData($('#rkmAuthor')[0]);
+        console.log(formData);
+	    $.ajax({
+	        url: 'aAuthor',
+	        type: 'POST',
+	        data: formData,
+	        async: false,
+	        success: function () {
+	             console.log('tes');   
+	        },
+	        cache: false,
+	        contentType: false,
+	        processData: false
+	    });
+	   	//e.preventDefault();
+	});
+</script>
 @stop

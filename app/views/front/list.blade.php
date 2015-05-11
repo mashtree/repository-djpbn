@@ -26,7 +26,7 @@
 					<li >
 						<h5>Keliling Indonesia dengan fasilitas kantor ...</h5>
 						<div class="result-img">
-							<img src="image/google-logo.png">
+							<img src="video/Bower.mp4">
 						</div>
 						<div class="result-content" >
 							<span><a>Ahmad Nurholis</a></span>

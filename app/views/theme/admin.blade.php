@@ -10,10 +10,12 @@
 {{ HTML::style('css/prettify.css'); }}
 {{ HTML::style('css/foundation.css');}}
 {{ HTML::style('css/foundation-icons.css');}}
+{{ HTML::style('css/foundation.datepicker.css');}}
 
 {{ HTML::style('css/admin.css'); }}
 {{ HTML::script('js/vendor/modernizr.js');}}
 {{ HTML::script('js/vendor/jquery.js'); }}
+{{ HTML::script('js/foundation/foundation.datepicker.js'); }}
 </head>
 <body>
 {{-- top bar --}}
