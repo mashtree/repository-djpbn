@@ -25,15 +25,31 @@ class BackendController extends BaseController{
 							'category' => 'required',
 							'summary' => 'required',
 							'release' => 'required',
-							'numpage' => 'required'
+							'numpage' => 'required',
+							'file'		=> 'required'
 						);
 			$validator = Validator::make(
 							Input::all(),$validator
 						);
 			if($validator->passes()){
-
+				$file = $_FILES['file'];
+				$nama = rand().'_'.$file['name'];
+				move_uploaded_file($file['tmp_file'], 'file/'.$nama);
+				$katalog = new Katalog();
+				$katalog->title = Input::get('title');
+				$katalog->category = Input::get('category');
+				$katalog->summary = Input::get('summary');
+				$katalog->filesize = $file['size'];
+				$katalog->filetype = $file['type'];
+				$katalog->release = Input::get('release');
+				$katalog->numpage = Input::get('numpage');
+				$katalog->ISBN = Input::get('isbn');
+				$katalog->file;
+				$katalog->save();
 			}else{
-
+				return Redirect::to('admin/katalog')
+						->withInput()
+						->withErrors($validator);
 			}
 
 		}
