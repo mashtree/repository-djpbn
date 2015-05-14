@@ -41,10 +41,13 @@
 		var wrapper = document.getElementById('author_select');
 		var option = '<option value=0>--PILIH AUTHOR--</option>';
 		$.getJSON(url, function(data) {
-	        for (var i = data.length - 1; i >= 0; i--) {
-	            option += '<option value='+data[i].id+'>'+data[i].nama+' '+data[i].nip+'</option>';
-	        };
 
+	        for (var i in data) {
+	        	//console.log(data[i]);
+	            option = option+'<option value='+data[i].id+'>'+data[i].name+' - '+data[i].nip+'</option>';
+	        };
+	        console.log(data);
+	        //console.log(option);
 	        $(wrapper).append(option);
 	    });
 	}
@@ -53,7 +56,7 @@
 	<legend>FILE</legend>
 	{{ Form::file('file',array('class'=>'button tiny'))}}
 </fieldset>
-{{ Form::submit('Click me!',array('class'=>'button small'))}}
+{{ Form::submit('Click me!',array('class'=>'button small','name'=>'submit'))}}
 {{ Form::close() }}
 </div>
 </div>

@@ -5,7 +5,7 @@
 <div class="large-8 columns end">
 @if(Session::has('sukses'))
     <div class='message message-success'>
-    <span class='close'></span>
+    <span class='close'>x</span>
       {{ Session::get('sukses'); }}
     </div>
   @endif
