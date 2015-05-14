@@ -10,6 +10,7 @@ class BackendController extends BaseController{
 
 	public function addKatalog(){
 		$kat = Kategori::all();
+		//$author = Author::all();
 		$kategori = array();
 		foreach ($kat as $key => $value) {
 			$kategori[$value->id] = $value->categoryname;
@@ -25,8 +26,7 @@ class BackendController extends BaseController{
 							'category' => 'required',
 							'summary' => 'required',
 							'release' => 'required',
-							'numpage' => 'required',
-							'file'		=> 'required'
+							'numpage' => 'required'
 						);
 			$validator = Validator::make(
 							Input::all(),$validator
@@ -34,7 +34,7 @@ class BackendController extends BaseController{
 			if($validator->passes()){
 				$file = $_FILES['file'];
 				$nama = rand().'_'.$file['name'];
-				move_uploaded_file($file['tmp_file'], 'file/'.$nama);
+				move_uploaded_file($file['tmp_name'], 'file/'.$nama);
 				$katalog = new Katalog();
 				$katalog->title = Input::get('title');
 				$katalog->category = Input::get('category');
@@ -46,6 +46,12 @@ class BackendController extends BaseController{
 				$katalog->ISBN = Input::get('isbn');
 				$katalog->file;
 				$katalog->save();
+				foreach (Input::get('author') as $key => $value) {
+					$authkatalog = new AuthorKatalog();
+					$authkatalog->idKatalog = $katalog->id;
+					$authkatalog->author = $value;
+					$authkatalog->save();
+				}
 			}else{
 				return Redirect::to('admin/katalog')
 						->withInput()
