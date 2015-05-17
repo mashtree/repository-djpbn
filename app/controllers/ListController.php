@@ -5,7 +5,7 @@ class ListController extends BaseController{
 	public function callList($kategori){
 		$kat = Kategori::get_where('categoryname="'.$kategori.'"');
 		$data = Katalog::get_katalog($kat[0]->id);
-		return View::make('front.list');
+		return View::make('front.list')->with('data',$data);
 	}
 
 	public function author(){

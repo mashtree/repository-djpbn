@@ -10,7 +10,7 @@ class BackendController extends BaseController{
 
 	public function addKatalog(){
 		$kat = Kategori::all();
-		//$author = Author::all();
+		$author = Author::all();
 		$kategori = array();
 		foreach ($kat as $key => $value) {
 			$kategori[$value->id] = $value->categoryname;
@@ -44,7 +44,7 @@ class BackendController extends BaseController{
 				$katalog->release = Input::get('release');
 				$katalog->numpage = Input::get('numpage');
 				$katalog->ISBN = Input::get('isbn');
-				$katalog->file;
+				$katalog->file = $nama;
 				$katalog->save();
 				foreach (Input::get('author') as $key => $value) {
 					$authkatalog = new AuthorKatalog();
@@ -52,6 +52,7 @@ class BackendController extends BaseController{
 					$authkatalog->author = $value;
 					$authkatalog->save();
 				}
+				return Redirect::to('admin/katalog')->with('sukses','rekam katalog sukses');
 			}else{
 				return Redirect::to('admin/katalog')
 						->withInput()
@@ -59,14 +60,14 @@ class BackendController extends BaseController{
 			}
 
 		}
-		return View::make('admin.katalog')->with(array('kat'=>$kategori,'year'=>$year));
+		return View::make('admin.katalog')->with(array('kat'=>$kategori,'year'=>$year,'author'=>$author));
 	}
 
 	public function getAuthor(){
 		$data = Author::all();
 		$author = array();
 		foreach ($data as $key => $value) {
-			$author[$value->id] = array('name'=>$value->authorname,'nip'=>$value->nip);
+			$author[$value->id] = array('id'=>$value->id,'name'=>$value->authorname,'nip'=>$value->nip);
 		}
 
 		echo json_encode($author);

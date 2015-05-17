@@ -4,6 +4,12 @@
 <div class="row">
 <div class="large-8 columns end">
 <h2>Rekam Katalog</h2>
+@if(Session::has('sukses'))
+    <div class='message message-success'>
+    <span class='close'>x</span>
+      {{ Session::get('sukses'); }}
+    </div>
+  @endif
 {{ Form::open(array('route' => 'katalog','files'=>true)) }}
 {{ Form::token() }}
 <fieldset>
@@ -27,6 +33,11 @@
 	<div>tidak ditemukan author? <a href="{{URL::to('admin/aAuthor')}}" >klik disini</a> untuk menambahkan</div>
 	<div class="input_fields_wrap">
     <div><select name="author[]" id="author_select">
+    {{--
+    	@foreach($author as $key=>$value)
+    		<option value="{{ $value->id }}">{{ $value->authorname }}</option>
+    	@endforeach
+    --}}
     </select></div>
 	</div>
 	<button class="add_field_button button tiny" title="tambah kolom lagiii...">+</button>
