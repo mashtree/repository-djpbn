@@ -67,6 +67,36 @@ App::down(function()
 	return Response::make("Be right back!", 503);
 });
 
+//tambahan
+
+App::error(function(Illuminate\Session\TokenMismatchException $exception, $code)
+{
+    /*
+    |    Write to a specific log
+    |    Or write the request information to the database for e.g. a firewall mechanism
+    |    
+    |    Or just:
+    */
+    
+    $errors = [
+        '_token' => [
+            'Token tricking is very bad!'
+        ]
+    ];
+    
+    /**
+     * Generate a new token for more security
+     */
+    Session::regenerateToken();
+
+    /**
+     * Redirect to the last step
+     * Refill any old inputs except _token (it would override our new token)
+     * Set the error message
+     */
+    return Redirect::back()->withInput(Input::except('_token'))->withErrors($errors);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File

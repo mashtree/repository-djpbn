@@ -12,7 +12,7 @@
 		</div>
 		<div class="units-row">{{-- hasil pencarian --}}
 			<div class="large-8 columns result end">
-			@if(count($data>0))
+			@if(count($data)>0)
 				<ul>
 					
 					@foreach($data as $key=>$value)
@@ -33,7 +33,11 @@
 						@endif
 						</h5></a>
 						<div class="result-img">
-							<img src="{{ 'file/'.$value->file }}">
+							@if($value->img!=null || $value->img!='')
+							<img src="{{ 'http://localhost/repository-djpbn-master/public/image/'.$value->img }}">
+							@else
+							<img src="http://localhost/repository-djpbn-master/public/image/nopict.jpg">
+							@endif
 						</div>
 						<div class="result-content" >
 							<?php $author = AuthorKatalog::get_author_katalog($value->id);?>
@@ -88,7 +92,13 @@
 						</div>
 					</li>-->
 				</ul>
-				@endif
+			@else
+				<div style="text-align:right">
+					<img src="http://localhost/repository-djpbn-master/public/image/empty-box.jpg">
+					<h3>ZOONKK...</h3>
+					MOHON MAAF ATAS KETIDAKNYAMANNYA ...
+				</div>
+			@endif
 			</div>
 		</div>
 		<div class="units-row">

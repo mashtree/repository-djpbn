@@ -14,7 +14,7 @@ class Katalog extends Eloquent{
 				->orderBy('katalog.created_at')
 				->get(array(
 						'katalog.id','katalog.title','category.categoryname','katalog.summary',
-						'katalog.filesize','katalog.filetype','katalog.file')
+						'katalog.filesize','katalog.filetype','katalog.file','katalog.img')
 					);
 		return $data;
 	}

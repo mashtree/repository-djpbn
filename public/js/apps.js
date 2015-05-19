@@ -16,8 +16,9 @@ $(add_button).click(function(e){ //on add input button click
     e.preventDefault();
     $.getJSON(url, function(data) {
         var option = '<option value=0>--PILIH AUTHOR--</option>';
-        for (var i = data.length - 1; i >= 0; i--) {
-            option += '<option value='+data[i].id+'>'+data[i].nama+' '+data[i].nip+'</option>';
+        //console.log(data);
+        for (var i in data) {
+            option += '<option value='+data[i].id+'>'+data[i].name+' - '+data[i].nip+'</option>';
         };
 
         $(wrapper).append('<div><select name="author[]">'+option+'</select><a href="#" class="hapus">Hapus kolom atas ane!</a></div>');

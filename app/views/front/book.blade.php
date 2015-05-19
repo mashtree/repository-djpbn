@@ -8,32 +8,38 @@
 <div class="large-1 columns">&nbsp;</div>
 <div class="large-10 columns end">
 	<div class="row" style="margin-top:20px">
-		<div class="large-5 columns end">
-			<h2>4 Musim Cinta</h2>
+		<div class="large-12 columns end">
+			<h2>{{ucwords(strtolower($book[0]->title))}}</h2>
 		</div>
 	</div>
 	<div class="row" >
 		<div class="large-5 columns end">
-		<img src="image/4musim.jpg">
+		@if($book[0]->img!=null || $book[0]->img!='')
+		<img src="{{ 'http://localhost/repository-djpbn-master/public/image/'.$book[0]->img }}">
+		@else
+		<img src="http://localhost/repository-djpbn-master/public/image/nopict.jpg">
+		@endif
 		</div>
 		<div class="large-7 columns">
-			<span>Judul: 4 Musim Cinta</span><br/>
-			<span>Penulis: <a href="{{ URL::to('author')}}">Abdul Gafur</a>, <a href="{{ URL::to('author')}}">Pringadi AS</a>, <a href="{{ URL::to('author')}}">Puguh Hermawan</a>, <a href="{{ URL::to('author')}}">Mandewi</a></span><br/>
-			<span>Penerbit: Exchange</span><br/>
-			<span>Tahun Terbit: Maret 2015</span><br/>
-			<span>Jumlah Halaman: 333</span><br/>
-			<span>ISBN: 9786027202429</span><br/>
+			<span>Judul: <b>{{ucwords(strtolower($book[0]->title))}}</b></span><br/>
+			<span>Penulis: 
+			@foreach($authors as $author)
+				<a href="{{ URL::to('author/'.$author->id)}}">{{$author->authorname}}</a>, 
+			@endforeach
+			</span><br/>
+			<span>Penerbit: {{$book[0]->publishername}}</span><br/>
+			<span>Tahun Terbit: {{$book[0]->release}}</span><br/>
+			<span>Jumlah Halaman: {{$book[0]->numpage}}</span><br/>
+			<span>ISBN: {{$book[0]->ISBN}}</span><br/>
 
 			<h5>Blurb:</h5>
 
-			<p style="text-align:justify">Apa kau percaya jika satu hati hanya diciptakan untuk satu cinta? Barangkali beruntung orang-orang yang bisa jatuh cinta beberapa kali dalam hidupnya. Tetapi aku yakin, lebih beruntung mereka yang sanggup menghabiskan hidupnya dengan satu orang yang dicintai dan mencintainya.
-
-			4 Musim Cinta adalah sebuah novel yang bertutur tentang lika-liku kehidupan cinta empat birokrat muda: satu wanita, tiga pria. Gayatri, wanita Bali yang merasa berbeda dengan wanita-wanita pada umumnya. Gafur, pria Makassar yang menjalin kasih dengan seorang barista asal Sunda yang enggan menikah. Pring, pria Palembang yang nikah muda tetapi harus terpisah jauh dari istrinya karena tugas negara. Arga, pria Jawa yang selalu gagal menjalin hubungan dengan wanita. Mereka bertemu dan saling berbagi rahasia. Tak disangka, setiap rahasia kemudian menjadi benih-benih rindu yang terlarang. Persahabatan, cinta, dan kesetiaan pun dipertaruhkan.</p>
+			<p style="text-align:justify">{{$book[0]->summary}}</p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="large-12 columns">
-			<a href="{{URL::to('summary')}}">pratinjau</a> | <a href="{{URL::to('read')}}">baca</a>
+			<a href="{{URL::to('summary/'.$book[0]->id)}}">pratinjau</a> | <a href="{{URL::to('read/'.$book[0]->id)}}">baca</a>
 		</div>
 	</div>
 	<div class="row">

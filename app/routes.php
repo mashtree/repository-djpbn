@@ -18,25 +18,25 @@ Route::get('/', function()
 
 Route::get('list={kat}', 'ListController@callList');
 
-Route::get('author','ListController@author');
+Route::get('author/{id}','ListController@author');
 
-Route::get('book','ListController@book');
+Route::get('book/{id}','ListController@book');
 
-Route::get('read','ListController@read');
+Route::get('read/{id}','ListController@read');
 
-Route::get('summary','ListController@pratinjau');
+Route::get('summary/{id}','ListController@pratinjau');
 
-Route::get('watch','ListController@watch');
+Route::get('watch/{id}','ListController@watch');
 
-Route::group(array('prefix'=>'admin'),function(){
+Route::group(array('prefix'=>'admin','before'=>'auth'),function(){
 
 	Route::get('list={kat}','BackendController@callList');
 
 	Route::get('katalog','BackendController@addKatalog');
 
-	Route::group(array('before'=>'csrf'),function(){
+	//Route::group(array('before'=>'csrf'),function(){
 		Route::post('katalog', array('as'=>'katalog','uses'=>'BackendController@addKatalog'));
-	});
+	//});
 
 	Route::get('aAuthor','BackendController@addAuthor');
 

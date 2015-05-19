@@ -43,6 +43,7 @@
 	    	
 	    </ul>
 	    <ul class="right">
+	    	<li id=""><a href="{{ URL::to('login') }}">Login</a>
 	    </ul>     
 	  </section>
 	</nav>
