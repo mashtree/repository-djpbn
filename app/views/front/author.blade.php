@@ -38,7 +38,7 @@
 	<h5>Karya :</h5>
 	<ol>
 	@foreach($books as $book)
-		<li>{{ucwords(strtolower($book->title))}} ({{$book->release}})</li>
+		<li><a href="http://localhost/repository-djpbn-master/public/book/{{$book->id}}">{{ucwords(strtolower($book->title))}}</a> ({{$book->release}})</li>
 	@endforeach
 	</ol>
 </div>
@@ -48,8 +48,12 @@
 	<h5>Kata siapa?</h5>
 	<ul>
 	<li style="display:block;margin-left:-15px">
-	<p><b>Abd. Gafur I</b></p>
-	<p><i>"Selalu out of the box! rock!"</i></p>
+	@foreach($comment as $key => $value)
+		<li style="display:block;margin-left:-15px;">
+			<b>{{$value->name}}</b>
+			<p><i>"{{$value->comment}}"</i></p>
+		</li>
+	@endforeach
 	</li>
 	</ul>
 </div>

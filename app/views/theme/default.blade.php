@@ -10,7 +10,8 @@
 {{ HTML::style('css/prettify.css'); }}
 {{ HTML::style('css/foundation.css');}}
 {{ HTML::style('css/foundation-icons.css');}}
-
+{{ HTML::style('css/foundation.datatables.css'); }}
+{{ HTML::script('js/vendor/jquery.js'); }}
 {{ HTML::style('css/apps.css'); }}
 {{ HTML::script('js/vendor/modernizr.js');}}
 </head>
@@ -29,6 +30,9 @@
 	    </li>
 	</ul>
 	<section class="top-bar-section">
+		<ul class="right">
+	    	<li id=""><a href="{{ URL::to('login') }}">Login</a></li>
+	    </ul> 
 	    <ul class="left" >
 	      	
 		    <li id=""><a href="{{ URL::to('list=kajian') }}">Kajian</a>
@@ -42,9 +46,7 @@
 	    	<li id=""><a href="{{ URL::to('list=video') }}">Video</a></li>    	
 	    	
 	    </ul>
-	    <ul class="right">
-	    	<li id=""><a href="{{ URL::to('login') }}">Login</a>
-	    </ul>     
+	        
 	  </section>
 	</nav>
 </div>
@@ -58,8 +60,9 @@
 <div id="footer" class="footer">
 	&copy; Bagian Administrasi Kepegawaian 2015
 </div>
-{{ HTML::script('js/vendor/jquery.js'); }}
 {{ HTML::script('js/foundation.min.js'); }}
+{{ HTML::script('js/jquery.datatables.js'); }}
+{{ HTML::script('js/foundation/foundation.datatables.js'); }}
 {{ HTML::script('js/prettify.js'); }}
 {{ HTML::script('js/apps.js'); }}
 </body>

@@ -8,6 +8,16 @@ class BackendController extends BaseController{
 		return View::make('front.list');
 	}
 
+	public function katalog(){
+		$kat = DB::table('katalog')
+				->join('category','katalog.category','=','category.id')
+				->orderBy('katalog.created_at','desc')
+				->get(array('katalog.id','katalog.title','katalog.release','category.categoryname'));
+		$act = 'list';
+		$no = 1;
+		return View::make('admin.katalog',compact('kat','act','no'));
+	}
+	
 	public function addKatalog(){
 		$kat = Kategori::all();
 		$author = Author::all();
@@ -32,9 +42,30 @@ class BackendController extends BaseController{
 							Input::all(),$validator
 						);
 			if($validator->passes()){
-				$file = $_FILES['file'];
-				$nama = rand().'_'.$file['name'];
-				move_uploaded_file($file['tmp_name'], 'file/'.$nama);
+				//file
+				if(Input::hasFile('file')){
+					$doc = Input::file('file');
+					$filename = $doc->getClientOriginalName();
+					$nama = rand().'_'.$filename;
+					$destinationPath = public_path('file/');
+					$uploadSuccess = Input::file('file')->move($destinationPath, $nama);
+					/*$file = $_FILES['file'];
+					$nama = rand().'_'.$file['name'];
+					move_uploaded_file($file['tmp_name'], 'file/'.$nama);*/
+				}else{
+					$nama = '';
+				}
+				//kover
+				if(Input::hasFile('kover')){
+					$doc = Input::file('kover');
+					$filename = $doc->getClientOriginalName();
+					$img = rand().'_'.$filename;
+					$destinationPath = public_path('image/cover/');
+					$uploadSuccess = Input::file('kover')->move($destinationPath, $img);
+				}else{
+					$img = '';
+				}
+				
 				$katalog = new Katalog();
 				$katalog->title = Input::get('title');
 				$katalog->category = Input::get('category');
@@ -45,6 +76,7 @@ class BackendController extends BaseController{
 				$katalog->numpage = Input::get('numpage');
 				$katalog->ISBN = Input::get('isbn');
 				$katalog->file = $nama;
+				$katalog->img = $img;
 				$katalog->save();
 				foreach (Input::get('author') as $key => $value) {
 					$authkatalog = new AuthorKatalog();
@@ -59,10 +91,26 @@ class BackendController extends BaseController{
 						->withErrors($validator);
 			}
 
+		}else{
+			return View::make('admin.katalog')->with(array('kat'=>$kategori,'year'=>$year,'author'=>$author,'act'=>'add'));
 		}
-		return View::make('admin.katalog')->with(array('kat'=>$kategori,'year'=>$year,'author'=>$author));
 	}
-
+	
+	public function like(){
+		if(Input::has('like')){
+			$katalog = Katalog::find(Input::get('id'));
+			$katalog->like = Input::get('like');
+			$katalog->save();
+		}
+	}
+	
+	public function author(){
+		$author = Author::all(); 
+		$act = 'list';
+		$no = 0;
+		return View::make('admin.author',compact('act','author','no'));
+	}
+	
 	public function getAuthor(){
 		$data = Author::all();
 		$author = array();
@@ -74,7 +122,7 @@ class BackendController extends BaseController{
 	}
 
 	public function addAuthor(){
-
+		$act = 'add';
 		if(Input::has('submit')){
 			$validator = Validator::make(
 					Input::all(),
@@ -116,11 +164,100 @@ class BackendController extends BaseController{
 							->withInput();
 			}
 			
+		}else{
+			return View::make('admin.author',compact('act'));
 		}
 		//if($author->save()) 
 		//return json_encode(array('success'=>1));
 		//return json_encode(array('success'=>0));
-		return View::make('admin.author');
+	}
+	
+	public function publisher(){
+		$publisher = Publisher::all();
+		$act = 'list';
+		return View::make('admin.publisher',compact('act','publisher'));
+	}
+	
+	public function addPublisher(){
+		$act = 'add';
+		if(Input::has('submit')){
+			$rules = array(
+							'username'=>'required',
+							'phone'=>'required',
+							'email'=>'required|email',
+							'address'=>'required'
+						);
+			
+			$validator = Validator::make(Input::all(),$rules);
+			
+			if($validator->passes()){
+				$pb = new Publisher();
+				$pb->publishername = Input::get('publishername');
+				$pb->phone = Input::get('phone');
+				$pb->email = Input::get('email');
+				$pb->address = Input::get('address');
+				$pb->save();
+				return Redirect::to('admin/publisher')->with('sukses','rekam data berhasil!');
+			}else{
+				return Redirect::to('admin/publisher')
+							->withInput()
+							->withErrors($validator);
+			}
+		}else{
+			return View::make('admin.publisher',compact('act'));
+		}
+		
+		//return Redirect::to('admin/publisher')->with('error','illegal operation!!!');
+	}
+	
+	public function tag(){
+		$act = 'list';
+		return View::make('admin.tag');
+	}
+	
+	public function addTag(){
+		$act = 'add';
+		if(Input::has('submit')){
+			$tag = new Tag();
+			$tag->tag = Input::get('tag');
+			$tag->save();
+			return Redirect::to('admin/tag')->with('sukses','rekam data berhasil!');
+		}else{
+			return View::make('admin.tag');
+		}
+		
+		//return Redirect::to('admin/tag')->with('error','illegal operation!!!');
+	}
+	
+	public function addArtikel(){
+		$act = 'add';
+		$author = Author::all();
+		if(Input::has('submit')){
+			$rules = array(
+						'title' => 'required',
+						'tag'	=> 'required',
+						'content' =>'required'
+					);
+			$validator = Validator::make(Input::all(),$rules);
+			if($validator->passes()){
+				$katalog = new Katalog();
+				$katalog->title = Input::get('title');
+				$katalog->category = 3;
+				$katalog->summary = Input::get('content');
+				$katalog->release = date('Y');
+				$katalog->save();
+				foreach(Input::get('author') as $value){
+					$author = new AuthorKatalog();
+					$author->idkatalog = $katalog->id;
+					$author->author = $value;
+					$author->save();
+				}
+			}else{
+				
+			}
+		}else{
+			return View::make('admin.artikel',compact('act','author'));	
+		}
 	}
 
 }

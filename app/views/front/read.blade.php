@@ -13,10 +13,11 @@
 		</div>
 	</div>
 	<div class="units-row" >
-		<div class="large-9 columns end">
+		<div id="dcontent" class="large-9 columns">
 		<embed src="http://localhost/repository-djpbn-master/public/file/{{$book[0]->file}}" style="width:100%;border:1px solid red" height="600" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
 		</div>
-		<div class="large-3 columns">
+		<div id="dinfo" class="large-3 columns">
+			<span class="close" id="info">X</span>
 			<span>Judul: <b>{{ucwords(strtolower($book[0]->title))}}</b></span><br/>
 			<span>Penulis: 
 			@foreach($authors as $author)
@@ -37,4 +38,10 @@
 		</div>
 </div>
 </div>
+<script>
+$('#info').click(function(e){
+	$('#dinfo').hide();
+	$('#dcontent').removeClass('large-9 columns').addClass('large-12 columns');
+})
+</script>
 @stop

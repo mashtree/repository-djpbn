@@ -32,16 +32,40 @@ Route::group(array('prefix'=>'admin','before'=>'auth'),function(){
 
 	Route::get('list={kat}','BackendController@callList');
 
-	Route::get('katalog','BackendController@addKatalog');
+	Route::get('katalog','BackendController@katalog');
+	
+	Route::get('rkmkatalog','BackendController@addKatalog');
 
-	//Route::group(array('before'=>'csrf'),function(){
-		Route::post('katalog', array('as'=>'katalog','uses'=>'BackendController@addKatalog'));
-	//});
+	Route::post('rkmkatalog', array('as'=>'katalog','uses'=>'BackendController@addKatalog'));
+	
+	Route::post('lkkatalog','BackendController@like');
+	
+	Route::get('rkmartikel','BackendController@addArtikel');
 
-	Route::get('aAuthor','BackendController@addAuthor');
+	Route::post('rkmartikel', array('as'=>'artikel','uses'=>'BackendController@addArtikel'));
+	
+	Route::get('author','BackendController@author');
+	
+	Route::get('rkmauthor','BackendController@addAuthor');
 
-	Route::post('aAuthor',array('as'=>'author','uses'=>'BackendController@addAuthor'));
+	Route::post('rkmauthor',array('as'=>'author','uses'=>'BackendController@addAuthor'));
+	
+	Route::get('publisher','BackendController@publisher');
+	
+	Route::get('rkmpublisher','BackendController@addPublisher');
+	
+	Route::post('rkmpublisher',array('as'=>'publisher','uses'=>'BackendController@addPublisher'));
+	
+	Route::get('tag','BackendController@tag');
+	
+	Route::post('tag',array('as'=>'tag','uses'=>'BackendController@addTag'));
 
 });
 
 Route::get('get_author','BackendController@getAuthor');
+
+Route::get('login','AuthController@login');
+
+Route::post('login','AuthController@doLogin');
+
+Route::get('logout','AuthController@doLogout');

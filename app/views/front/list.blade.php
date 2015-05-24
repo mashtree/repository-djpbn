@@ -13,7 +13,7 @@
 		<div class="units-row">{{-- hasil pencarian --}}
 			<div class="large-8 columns result end">
 			@if(count($data)>0)
-				<ul>
+				<ul id="list">
 					
 					@foreach($data as $key=>$value)
 					<li >
@@ -50,47 +50,6 @@
 						</div>
 					</li>
 					@endforeach
-					
-					<!--<li >
-						<h5>Keliling Indonesia dengan fasilitas kantor ...</h5>
-						<div class="result-img">
-							<img src="video/Bower.mp4">
-						</div>
-						<div class="result-content" >
-							<span><a>Ahmad Nurholis</a></span>
-							<p>Ali Zaki. BAB 6 GOOGLE MAPS DAN WIKIMAPIA Aplikasi yang mirip dengan Google Earth (bahkan sebenarnya memiliki back-office yang sama), namun ditampilkan dengan antarmuka web adalah Google Maps. Karena menggunakan thin ...</p>
-						</div>
-					</li>
-					<li >
-						<h5>Keliling Indonesia dengan fasilitas kantor ...</h5>
-						<div class="result-img">
-							<img src="image/google-logo.png">
-						</div>
-						<div class="result-content" >
-							<span><a>Ahmad Nurholis</a></span>
-							<p>Ali Zaki. BAB 6 GOOGLE MAPS DAN WIKIMAPIA Aplikasi yang mirip dengan Google Earth (bahkan sebenarnya memiliki back-office yang sama), namun ditampilkan dengan antarmuka web adalah Google Maps. Karena menggunakan thin ...</p>
-						</div>
-					</li>
-					<li >
-						<h5>Keliling Indonesia dengan fasilitas kantor ...</h5>
-						<div class="result-img">
-							<img src="image/google-logo.png">
-						</div>
-						<div class="result-content" >
-							<span><a>Ahmad Nurholis</a></span>
-							<p>Ali Zaki. BAB 6 GOOGLE MAPS DAN WIKIMAPIA Aplikasi yang mirip dengan Google Earth (bahkan sebenarnya memiliki back-office yang sama), namun ditampilkan dengan antarmuka web adalah Google Maps. Karena menggunakan thin ...</p>
-						</div>
-					</li>
-					<li >
-						<h5>Keliling Indonesia dengan fasilitas kantor ...</h5>
-						<div class="result-img">
-							<img src="image/google-logo.png">
-						</div>
-						<div class="result-content" >
-							<span><a>Ahmad Nurholis</a></span>
-							<p>Ali Zaki. BAB 6 GOOGLE MAPS DAN WIKIMAPIA Aplikasi yang mirip dengan Google Earth (bahkan sebenarnya memiliki back-office yang sama), namun ditampilkan dengan antarmuka web adalah Google Maps. Karena menggunakan thin ...</p>
-						</div>
-					</li>-->
 				</ul>
 			@else
 				<div style="text-align:right">
@@ -108,4 +67,9 @@
 		</div>
 	</div>
 </div>
+<script>
+$(function(){
+	$('#list').dataTable();
+});
+</script>
 @stop

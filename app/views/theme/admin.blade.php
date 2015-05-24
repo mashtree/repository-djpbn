@@ -13,9 +13,13 @@
 {{ HTML::style('css/foundation.datepicker.css');}}
 
 {{ HTML::style('css/admin.css'); }}
+{{ HTML::style('css/foundation.datatables.css'); }}
 {{ HTML::script('js/vendor/modernizr.js');}}
 {{ HTML::script('js/vendor/jquery.js'); }}
+{{ HTML::script('js/jquery.datatables.js'); }}
 {{ HTML::script('js/foundation/foundation.datepicker.js'); }}
+{{ HTML::script('js/foundation/foundation.datatables.js'); }}
+{{ HTML::script('js/tinymce/tinymce.min.js'); }}
 </head>
 <body>
 {{-- top bar --}}
@@ -34,9 +38,9 @@
 	<section class="top-bar-section">
 	    <ul class="right" >
 
-	    	<li id=""><a href="#">Username</a></li>
+	    	<li id=""><a href="#">{{Auth::user()->username}}</a></li>
 
-	    	<li id=""><a href="#">Logout</a></li>    	
+	    	<li id=""><a href="{{URL::to('logout')}}">Logout</a></li>    	
 	    	
 	    </ul>    
 	  </section>
