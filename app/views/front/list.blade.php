@@ -27,7 +27,11 @@
 							}
 							$titles = implode(' ', $titles);
 						?>
-						<a href="{{ URL::to('book/'.$value->id) }}"><h5>{{ $titles }}
+						@if($value->category==5)
+							<a href="{{ URL::to('watch/'.$value->id) }}"><h5>{{ $titles }}
+						@else
+							<a href="{{ URL::to('book/'.$value->id) }}"><h5>{{ $titles }}
+						@endif
 						@if($c>10)
 							...
 						@endif

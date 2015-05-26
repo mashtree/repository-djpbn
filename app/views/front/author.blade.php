@@ -10,7 +10,7 @@
 <div class="large-8 columns end">
 <div class="row">
 <div class="large-12 columns" style="margin-top:20px">
-<h4>{{$author->authorname}}</h4>
+<h4>{{$author->authorname}}&nbsp;<span style="font-size:0.5em"><a href="{{URL::to('lsauthor')}}">[list author]</a></span></h4>
 </div>
 </div>
 <div class="row">
@@ -38,7 +38,13 @@
 	<h5>Karya :</h5>
 	<ol>
 	@foreach($books as $book)
-		<li><a href="http://localhost/repository-djpbn-master/public/book/{{$book->id}}">{{ucwords(strtolower($book->title))}}</a> ({{$book->release}})</li>
+		<li>
+		@if($book->category==5)
+		<a href="http://localhost/repository-djpbn-master/public/watch/{{$book->id}}">
+		@else
+		<a href="http://localhost/repository-djpbn-master/public/book/{{$book->id}}">
+		@endif
+		{{ucwords(strtolower($book->title))}}</a> ({{$book->release}})</li>
 	@endforeach
 	</ol>
 </div>

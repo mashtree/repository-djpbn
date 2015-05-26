@@ -6,7 +6,7 @@
 <div class="large-2 columns">&nbsp;</div>
 <div class="large-8 columns end">
 <div class="logo">
-	<img src="image/google-logo.png">
+	<img src="image/logo.png">
 </div>
 <div class="form-search">
 	<form>

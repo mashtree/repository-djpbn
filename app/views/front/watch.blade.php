@@ -14,10 +14,14 @@
 	</div>
 	<div class="units-row" >
 		<div class="large-9 columns end">
+		@if(!file_exists('video/'.$video[0]->file))
+		<iframe width="100%" height="400px" src="{{$video[0]->file}}" frameborder="0" allowfullscreen></iframe>
+		@else
 		<video style="width:100%" controls>
 		  <source src="http://localhost/repository-djpbn/public/video/{{$video[0]->file}}" type="video/mp4">
 		  Your browser does not support HTML5 video.
 		</video>
+		@endif
 		</div>
 		<div class="large-3 columns">
 			<span>Judul: <b>{{ucwords(strtolower($video[0]->title))}}</b></span><br/>

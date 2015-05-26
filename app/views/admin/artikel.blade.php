@@ -6,17 +6,37 @@
 
 <div class="large-10 columns end">
 <h2>Rekam Artikel</h2>
+@if (count($errors) > 0)
+	<div class="message message-fail">
+		<strong>Whoops!</strong> There were some problems with your input.<br><br>
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
+@if(Session::has('sukses'))
+    <div class='message message-success'>
+    <span class='close'>x</span>
+      {{ Session::get('sukses'); }}
+    </div>
+  @endif
 {{Form::open(array('route'=>'artikel','files'=>true))}}
 {{Form::text('title','',array('required','class'=>'','placeholder'=>'Judul artikel'))}}
 {{Form::text('tag','',array('required','placeholder'=>'tag::pisahkan tag dengan tanda koma'))}}
-<div></div>
+<div>
+	@foreach($tags as $tag)
+		<span>tag</span>
+	@endforeach
+</div>
 <fieldset>
 {{Form::textarea('content','',array('id'=>'artikel','cols'=>50,'rows'=>50))}}
 </fieldset>
 <fieldset>
 	<legend>AUTHOR</legend>
 	{{-- data-reveal-id="author-modal" --}}
-	<div>tidak ditemukan author? <a href="{{URL::to('admin/aAuthor')}}" >klik disini</a> untuk menambahkan</div>
+	<div>tidak ditemukan author? <a href="{{URL::to('admin/rkmuthor')}}" >klik disini</a> untuk menambahkan</div>
 	<div class="input_fields_wrap">
     <div><select name="author[]" id="author_select">
     {{--

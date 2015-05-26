@@ -43,9 +43,20 @@ class ListController extends BaseController{
 		$books = DB::table('katalog')
 				->join('author_katalog','katalog.id','=','author_katalog.idkatalog')
 				->where('author_katalog.author','=',$id)
-				->get(array('katalog.title','katalog.release','katalog.id'));
+				->get(array('katalog.title','katalog.release','katalog.id','katalog.category'));
 		$comment = Comment::where('id_obj','=',$author->id)->where('cat_comment','=',2)->get();
 		return View::make('front.author',compact('author','books','comment'));
+	}
+	
+	public function listAuthor(){
+		$authors = Author::selectRaw('id,authorname, (select count(a.id) as num from katalog a
+						left join author_katalog b on a.id=b.idkatalog
+						where b.author = author.id) as num')
+						->get();
+		foreach($authors as $a){
+			echo $a->id.' '.$a->authorname.' '.$a->num.'<br/>';
+		}
+		return View::make('front.lsauthor',compact('author'));
 	}
 
 	public function book($id){
@@ -65,7 +76,8 @@ class ListController extends BaseController{
 				->leftjoin('publisher','katalog.publisher','=','publisher.id')
 				->where('katalog.id','=',$id)
 				->get(array('katalog.id','katalog.title','katalog.release',
-				'katalog.numpage','publisher.publishername','katalog.file','katalog.ISBN'));
+				'katalog.numpage','publisher.publishername','katalog.file','katalog.ISBN','katalog.category','katalog.summary',
+				'katalog.updated_at'));
 		$authors = AuthorKatalog::get_author_katalog($id);
 		return View::make('front.read',compact('book','authors'));
 	}

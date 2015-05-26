@@ -31,6 +31,9 @@
 	</ul>
 	<section class="top-bar-section">
 		<ul class="right">
+			@if(Auth::check())
+			<li id=""><a href="#">{{Auth::user()->username}}</a></li>
+			@endif
 	    	<li id=""><a href="{{ URL::to('login') }}">Login</a></li>
 	    </ul> 
 	    <ul class="left" >
@@ -58,7 +61,8 @@
 </div>
 {{-- footer --}}
 <div id="footer" class="footer">
-	&copy; Bagian Administrasi Kepegawaian 2015
+	<span>&copy; Bagian Administrasi Kepegawaian 2015</span>
+	<span style="float:right;margin-right:20px">Tentang</span>
 </div>
 {{ HTML::script('js/foundation.min.js'); }}
 {{ HTML::script('js/jquery.datatables.js'); }}

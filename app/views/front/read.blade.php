@@ -14,7 +14,14 @@
 	</div>
 	<div class="units-row" >
 		<div id="dcontent" class="large-9 columns">
+		@if($book[0]->category==3)
+		<div style="text-align:justify">
+		<p>{{$book[0]->updated_at}}</p>
+		{{$book[0]->summary}}
+		</div>
+		@else
 		<embed src="http://localhost/repository-djpbn-master/public/file/{{$book[0]->file}}" style="width:100%;border:1px solid red" height="600" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+		@endif
 		</div>
 		<div id="dinfo" class="large-3 columns">
 			<span class="close" id="info">X</span>
@@ -24,10 +31,14 @@
 			<a href="{{ URL::to('author/'.$author->id)}}">{{$author->authorname}}</a>, 
 			@endforeach
 			</span><br/>
+			@if($book[0]->category!=3)
 			<span>Penerbit: {{$book[0]->publishername}}</span><br/>
+			@endif
 			<span>Tahun Terbit: {{$book[0]->release}}</span><br/>
+			@if($book[0]->category!=3)
 			<span>Jumlah Halaman: {{$book[0]->numpage}}</span><br/>
 			<span>ISBN: {{$book[0]->ISBN}}</span><br/>
+			@endif
 		</div>
 	</div>
 	

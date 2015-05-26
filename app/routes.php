@@ -20,6 +20,8 @@ Route::get('list={kat}', 'ListController@callList');
 
 Route::get('author/{id}','ListController@author');
 
+Route::get('lsauthor','ListController@listAuthor');
+
 Route::get('book/{id}','ListController@book');
 
 Route::get('read/{id}','ListController@read');
@@ -50,11 +52,19 @@ Route::group(array('prefix'=>'admin','before'=>'auth'),function(){
 
 	Route::post('rkmauthor',array('as'=>'author','uses'=>'BackendController@addAuthor'));
 	
+	Route::get('rmauthor/{id}','BackendController@delAuthor');
+	
 	Route::get('publisher','BackendController@publisher');
 	
 	Route::get('rkmpublisher','BackendController@addPublisher');
 	
 	Route::post('rkmpublisher',array('as'=>'publisher','uses'=>'BackendController@addPublisher'));
+	
+	Route::get('user','BackendController@user');
+	
+	Route::get('rkmuser','BackendController@addUser');
+	
+	Route::post('rkmuser',array('as'=>'user','uses'=>'BackendController@addUser'));
 	
 	Route::get('tag','BackendController@tag');
 	

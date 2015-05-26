@@ -36,6 +36,11 @@
 	    </li>
 	</ul>
 	<section class="top-bar-section">
+		<ul>
+			<li><a href="{{ URL::to('admin/katalog') }}">katalog</a></li>
+			<li><a href="{{ URL::to('admin/author')}}">author</a></li>
+			<li><a href="{{ URL::to('admin/publisher')}}">penerbit</a></li>
+		</ul>
 	    <ul class="right" >
 
 	    	<li id=""><a href="#">{{Auth::user()->username}}</a></li>
@@ -49,14 +54,14 @@
 </div>
 </div>
 <div class="units-row">
-{{-- side-menu --}}
+{{-- side-menu 
 <div class="large-3 columns">
 <div id="side-menu">
 @include('admin.side-menu')
 </div>
-</div>
+</div>--}}
 {{-- content --}}
-<div class="large-9 columns">
+<div class="large-12 columns">
 <div id="content">
 @yield('content')	
 </div>

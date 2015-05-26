@@ -141,7 +141,7 @@ class BackendController extends BaseController{
 				if($file['name']!=''){
 					$ext = explode('.', $file['name']);
 					$name = 'foto_'.rand().'.'.end($ext);
-					move_uploaded_file($file['tmp_name'], 'public/image/'.$name);
+					move_uploaded_file($file['tmp_name'], 'image/'.$name);
 				}else{
 					$name = NULL;
 				}
@@ -157,9 +157,9 @@ class BackendController extends BaseController{
 				$author->birthplace = Input::get('birthplace');
 				$author->birthdate = Input::get('birthdate');
 				$author->save();
-				return Redirect::to('admin/aAuthor')->with('sukses','###');
+				return Redirect::to('admin/rkmauthor')->with('sukses','###');
 			}else{
-				return Redirect::to('admin/aAuthor')
+				return Redirect::to('admin/rkmauthor')
 							->withErrors($validator)
 							->withInput();
 			}
@@ -170,6 +170,15 @@ class BackendController extends BaseController{
 		//if($author->save()) 
 		//return json_encode(array('success'=>1));
 		//return json_encode(array('success'=>0));
+	}
+	
+	public function delAuthor($id){
+		$author = Author::find($id);
+		$author->delete(); //remove from author table
+		$author_katalog = AuthorKatalog::where('author','=',$id)->get();
+		$author_katalog->delete();//remove data from author_katalog table
+		return Redirect::to('admin/author');
+		
 	}
 	
 	public function publisher(){
@@ -232,6 +241,7 @@ class BackendController extends BaseController{
 	public function addArtikel(){
 		$act = 'add';
 		$author = Author::all();
+		$tags = Tag::all();
 		if(Input::has('submit')){
 			$rules = array(
 						'title' => 'required',
@@ -252,12 +262,39 @@ class BackendController extends BaseController{
 					$author->author = $value;
 					$author->save();
 				}
+				return Redirect::to('admin/rkmartikel')->width('sukses','Berhasil rekam Artikel!');
 			}else{
-				
+				return Redirect::to('admin/rkmartikel')
+							->withInput()
+							->withErrors($validator);
 			}
 		}else{
-			return View::make('admin.artikel',compact('act','author'));	
+			return View::make('admin.artikel',compact('act','author','tags'));	
 		}
 	}
+	
+	public function user(){
+		$users = User::all();
+		$act = 'list';
+		return View::make('admin.user',compact('users','act'));
+	}
+	public function addUser(){
+		$role = array(1=>'admin',2=>'contributor',3=>'viewer');
+		$act = 'add';
+		if(Input::has('submit')){
+			$rules = array();
+			$validator = Validator::make(Input::all(),$rules);
+			if($validator->passes()){
+				return Redirect::to('admin/rkmuser')->with('sukses','Rekam data User berhasil!');
+			}else{
+				return Redirect::to('admin/rkmuser')
+							->withErrors($validator)
+							->withInput();
+			}
+		}
+		return View::make('admin.user',compact('role','act'));
+	}
+	
+	
 
 }
