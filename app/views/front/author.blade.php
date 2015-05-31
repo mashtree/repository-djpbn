@@ -7,6 +7,24 @@
 {{-- content --}}
 <div class="units-row">
 <div class="large-1 columns">&nbsp;</div>
+@if($act=='list')
+<div class="large-8 columns end">
+<div class="row">
+<div class="large-12 columns" style="margin-top:20px">
+<h4>List Author</h4>
+</div>
+</div>
+<div class="row">
+<div class="large-12 columns">
+<ol>
+@foreach($authors as $author)
+<li><a href="{{URL::to('author/'.$author->id)}}">{{$author->authorname}} [{{$author->num}}]</a></li>
+@endforeach
+</ol>
+</div>
+</div>
+</div>
+@elseif($act=='person')
 <div class="large-8 columns end">
 <div class="row">
 <div class="large-12 columns" style="margin-top:20px">
@@ -70,6 +88,7 @@
 	</div>
 </div>
 </div>
+@endif
 </div>
 
 @stop

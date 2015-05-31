@@ -40,9 +40,11 @@
 			<li><a href="{{ URL::to('admin/katalog') }}">katalog</a></li>
 			<li><a href="{{ URL::to('admin/author')}}">author</a></li>
 			<li><a href="{{ URL::to('admin/publisher')}}">penerbit</a></li>
+			<li><a href="{{ URL::to('admin/quote')}}">quotes</a></li>
+			<li><a href="{{ URL::to('admin/user')}}">user</a></li>
 		</ul>
 	    <ul class="right" >
-
+			<li><a href="{{URL::to('/')}}"><img width="40px" src="http://localhost/repository-djpbn-master/public/image/logo_1.png"></a></li>
 	    	<li id=""><a href="#">{{Auth::user()->username}}</a></li>
 
 	    	<li id=""><a href="{{URL::to('logout')}}">Logout</a></li>    	
@@ -53,7 +55,7 @@
 </div>
 </div>
 </div>
-<div class="units-row">
+<div class="units-row" style="min-height:625px">
 {{-- side-menu 
 <div class="large-3 columns">
 <div id="side-menu">
@@ -68,8 +70,12 @@
 </div>
 </div>
 {{-- footer --}}
-<div id="footer" class="footer">
+<div class="units-row">
+<div id="footer" class="large-12 columns footer">
+
 	&copy; Bagian Administrasi Kepegawaian 2015
+
+</div>
 </div>
 {{ HTML::script('js/foundation.min.js'); }}
 {{ HTML::script('js/foundation/foundation.magellan.js'); }}

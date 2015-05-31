@@ -38,7 +38,7 @@ $(function(){
 <div class="row">
 <div class="large-8 columns end">
 
-<h2>Rekam Penerbit</h2>
+<h2>Rekam User</h2>
 @if (count($errors) > 0)
 	<div class="message message-fail">
 		<strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -62,11 +62,64 @@ $(function(){
 			<div class="row">
 			<div class="large-12 columns">
 				{{ Form::label('username','NAMA USER')}}
-				{{ Form::text('username','',array('required','placeholder'=>'nama user'))}}
+				{{ Form::text('username',Form::old('username'),array('required','placeholder'=>'nama user'))}}
 				{{ Form::label('password','PASSWORD')}}
 				{{ Form::password('password','',array('required','placeholder'=>'******'))}}
 				{{ Form::label('password2','ULANGI PASSWORD')}}
 				{{ Form::password('password2','',array('required','placeholder'=>''))}}
+				{{ Form::label('author','PILIH AUTHOR [abaikan jika user tidak ter*** dengan author]') }}
+				{{ Form::select('author',$authors,Form::old('author')) }}
+				{{ Form::label('role','ROLE ')}}
+				{{ Form::select('role',$role,Form::old('role'))}}
+			</div>				
+			</div>
+			<div class="row">
+				<div class="middle-12 columns" style="text-align:right">
+					{{Form::submit('Click me!',array('class'=>'button small','name'=>'submit'))}}
+					<!--<input class="button" type="submit" name="submit" value="kirim" id="sAuthor">	-->
+				</div>
+			</div>
+			
+		</fieldset>
+{{ Form::close()}}
+</div>
+</div>
+{{-- UBAH --}}
+@elseif($act=='edit')
+<div class="row">
+<div class="large-8 columns end">
+
+<h2>Ubah User</h2>
+@if (count($errors) > 0)
+	<div class="message message-fail">
+		<strong>Whoops!</strong> There were some problems with your input.<br><br>
+		<ul>
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
+@if(Session::has('sukses'))
+    <div class='message message-success'>
+    <span class='close'>x</span>
+      {{ Session::get('sukses'); }}
+    </div>
+@endif
+{{ Form::model($user, array('route' => array('user.update'))) }}
+{{ Form::token() }}
+<fieldset>
+			<legend style="color:#52B3AE" class="font-grey">Ubah User</legend>
+			<div class="row">
+			<div class="large-12 columns">
+				{{ Form::hidden('id',$user->id,array('type'=>'hidden'))}}
+				{{ Form::label('username','NAMA USER : '.strtoupper($user->username))}}
+				{{ Form::label('password','PASSWORD')}}
+				{{ Form::password('password')}}
+				{{ Form::label('password2','ULANGI PASSWORD')}}
+				{{ Form::password('password2')}}
+				{{ Form::label('author','PILIH AUTHOR [abaikan jika user tidak ter*** dengan author]') }}
+				{{ Form::select('author',$authors) }}
 				{{ Form::label('role','ROLE ')}}
 				{{ Form::select('role',$role)}}
 			</div>				

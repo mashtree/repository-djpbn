@@ -8,7 +8,7 @@
 	<div class="large-1 columns">&nbsp;</div>
 	<div class="large-10 columns end">
 		<div class="units-row"> {{-- jumlah hasil pencarian --}}
-		<div class="large-12 columns result-count">Ditemukan {{ count($data)}} katalog dalam kategori ini</div>
+		<div class="large-12 columns result-count">Ditemukan {{ count($data)}} katalog dalam kategori <b>{{strtoupper($kategori)}}</b></div>
 		</div>
 		<div class="units-row">{{-- hasil pencarian --}}
 			<div class="large-8 columns result end">
@@ -36,13 +36,16 @@
 							...
 						@endif
 						</h5></a>
+						@if($value->category!=3)
 						<div class="result-img">
+						
 							@if($value->img!=null || $value->img!='')
-							<img src="{{ 'http://localhost/repository-djpbn-master/public/image/'.$value->img }}">
+							<img src="{{ 'http://localhost/repository-djpbn-master/public/image/cover/'.$value->img }}">
 							@else
 							<img src="http://localhost/repository-djpbn-master/public/image/nopict.jpg">
 							@endif
 						</div>
+						@endif
 						<div class="result-content" >
 							<?php $author = AuthorKatalog::get_author_katalog($value->id);?>
 							<span>

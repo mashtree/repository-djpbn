@@ -4,7 +4,7 @@
 
 <div class="row">
 
-<div class="large-10 columns end">
+<div class="large-12 columns end">
 <h2>Rekam Artikel</h2>
 @if (count($errors) > 0)
 	<div class="message message-fail">
@@ -26,10 +26,25 @@
 {{Form::text('title','',array('required','class'=>'','placeholder'=>'Judul artikel'))}}
 {{Form::text('tag','',array('required','placeholder'=>'tag::pisahkan tag dengan tanda koma'))}}
 <div>
+<span>tags : </span>
 	@foreach($tags as $tag)
-		<span>tag</span>
+		<a><span class="tag" style="cursor:pointer">{{$tag->tag}}</span></a>,
 	@endforeach
 </div>
+<script>
+	$('.tag').click(function(){
+		tag = $('.tag').eq($('.tag').index(this)).text();
+		exist = $('input[name=tag]').val().replace(/[ ]/g,'');
+		tmp = exist.split(',');
+		if($.inArray(tag,tmp)<0){
+			if(exist!=''){
+				$('input[name=tag]').val(exist+','+tag);
+			}else{
+				$('input[name=tag]').val(tag);
+			}
+		}
+	});
+</script>
 <fieldset>
 {{Form::textarea('content','',array('id'=>'artikel','cols'=>50,'rows'=>50))}}
 </fieldset>
@@ -70,7 +85,7 @@
 	        	//console.log(data[i]);
 	            option = option+'<option value='+data[i].id+'>'+data[i].name+' - '+data[i].nip+'</option>';
 	        };
-	        console.log(data);
+	        //console.log(data);
 	        //console.log(option);
 	        $(wrapper).append(option);
 	    });

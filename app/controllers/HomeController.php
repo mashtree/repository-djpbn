@@ -15,9 +15,13 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function home()
 	{
-		return View::make('hello');
+		$quotes = Quote::all()->toArray();//var_dump($quotes);
+		$quote = $quotes[rand(0,count($quotes)-1)];
+		$mostviewed = Katalog::orderBy('view','desc')->take(9)->get();
+		$lastrelease = Katalog::orderBy('created_at','desc')->take(9)->get();
+		return View::make('home',compact('quote','mostviewed','lastrelease'));
 	}
 
 }

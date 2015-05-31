@@ -16,7 +16,7 @@
 	<div class="row" >
 		<div class="large-5 columns end">
 		@if($book[0]->img!=null || $book[0]->img!='')
-		<img src="{{ 'http://localhost/repository-djpbn-master/public/image/'.$book[0]->img }}">
+		<img src="{{ 'http://localhost/repository-djpbn-master/public/image/cover/'.$book[0]->img }}">
 		@else
 		<img src="http://localhost/repository-djpbn-master/public/image/nopict.jpg">
 		@endif
@@ -84,8 +84,19 @@ $('#like').click(function(){
 	if(login==1){
 		like = parseInt($('#like').text())+1;
 		id = $('#id').val();
-		$('#like').text((like));
-		$.post('http://localhost/repository-djpbn-master/public/admin/lkkatalog',{like:like,id:id},function(e){e.preventDefault});
+		$.post('http://localhost/repository-djpbn-master/public/admin/ceklike',{id:id},
+			function(data){
+				//console.log(data.exists);
+				if(parseInt(data.exists)>0){
+					//console.log(data);
+					alert('Anda telah menggunakan fasilitas ini!');
+					return false;
+				}else{
+					$('#like').text((like));
+					$.post('http://localhost/repository-djpbn-master/public/admin/lkkatalog',{like:like,id:id},function(e){e.preventDefault});
+				}
+			},"json"
+		);
 	}else{
 		alert('Anda harus login terlebih dahulu untuk menggunakan fasilitas ini!');
 	}

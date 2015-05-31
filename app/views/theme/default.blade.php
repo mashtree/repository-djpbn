@@ -32,9 +32,19 @@
 	<section class="top-bar-section">
 		<ul class="right">
 			@if(Auth::check())
-			<li id=""><a href="#">{{Auth::user()->username}}</a></li>
+			<li id="">
+			@if(Auth::user()->role==3)
+			<a href="#">
+			@else
+			<a href="{{URL::to('admin')}}">
 			@endif
+			{{ucwords(strtolower(Auth::user()->username))}}</a></li>
+			@endif
+			@if(Auth::check())
+			<li id=""><a href="{{ URL::to('logout') }}">Logout</a></li>
+			@else
 	    	<li id=""><a href="{{ URL::to('login') }}">Login</a></li>
+			@endif
 	    </ul> 
 	    <ul class="left" >
 	      	
@@ -56,13 +66,27 @@
 </div>
 </div>
 {{-- content --}}
-<div id="content">
+<div id="content" style="min-height:600px">
 @yield('content')	
 </div>
 {{-- footer --}}
-<div id="footer" class="footer">
+<div class="units-row">
+<div id="footer" class="large-12 columns footer">
 	<span>&copy; Bagian Administrasi Kepegawaian 2015</span>
-	<span style="float:right;margin-right:20px">Tentang</span>
+	<span style="float:right;margin-right:20px"><a href="#" data-reveal-id="about">Tentang</a></span>
+</div>
+</div>
+<div style="background-color:#1abc9c" id="about" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+	<div style="text-align:center">
+		<img width="300px" src="{{URL::to('image/logo.png')}}">
+	</div>
+	<h2 id="modalTitle" style="color:#fff">About</h2>
+	<p  style="color:#fff">Online Library System (OLIS) adalah sebuah laman penyimpanan/repository kajian, artikel, buku, 
+	policy paper dan informasi multimedia pada area pembangunan manusia (SDM) Direktorat Jenderal 
+	Perbendaharaan, Kementerian Keuangan. OLIS didedikasikan untuk pengembangan riset, inovasi 
+	serta pengelolaan pengetahuan SDM Ditjen Perbendaharaan menuju  transformasi peran SDM 
+	sebagai mitra strategis dan katalis perubahan organisasi.</p>
+	<a class="close-reveal-modal" aria-label="Close"  style="color:#e74c3c">&#215;</a>
 </div>
 {{ HTML::script('js/foundation.min.js'); }}
 {{ HTML::script('js/jquery.datatables.js'); }}
